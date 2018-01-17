@@ -12,6 +12,7 @@ import { EnrollComponent } from './enroll/enroll.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent},
+  { path: 'details', component: DetailsComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full'},
