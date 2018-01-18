@@ -1,3 +1,63 @@
 <div class="container">
-  <p>login Page</p>
+  <div *ngIf="!email; else forminfo">
+    <form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
+      <h2>Login</h2>
+
+      <div class="row">
+        <div class="col-md-6 col-md-offset-1 form-container container">
+          <div class="row">
+
+            <div class="col-md-2">
+              <label>Email</label>
+            </div>
+
+            <div class="col-md-10">
+              <input type="text" formControlName="email">
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="alert col-md-6 col-md-offset-3" *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].touched">
+              {{emailAlert}}
+            </div>
+          </div>  
+          <div class="row">
+
+            <div class="col-md-2">
+              <label>Password</label>
+            </div>
+
+            <div class="col-md-10">
+              <input type="password" formControlName="password">
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="alert col-md-6 col-md-offset-3" *ngIf="!rForm.controls['password'].valid && rForm.controls['password'].touched">
+              {{passwordAlert}}
+            </div>
+          </div> 
+          <div class="row">
+            <div class="col-md-5 col-md-offset-6">
+              <input type="submit" class="btn btn-success" value="Login">
+            </div> 
+          </div>
+          <div class="row">
+            <div class="alert col-md-6 col-md-offset-3" *ngIf="notFill">
+              <p>Fill all the required fields</p>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <ng-template #forminfo>
+    <div class="form-container">
+      <div class="row columns">
+        <h3>{{email}}</h3>
+        <p>{{password}}</p>
+      </div>
+    </div>
+  </ng-template>
 </div>

@@ -1,3 +1,192 @@
 <div class="container">
-  <p>Register Page</p>
-</div>
+    <div *ngIf="!email; else forminfo">
+      <form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
+        <h2>Register</h2>
+  
+        <div class="row">
+          <div class="col-md-6 col-md-offset-1 form-container container">
+            <!-- First name input -->
+            <div class="row">
+  
+              <div class="col-md-2">
+                <label>First Name</label>
+              </div>
+  
+              <div class="col-md-10">
+                <input type="text" formControlName="fname">
+              </div>
+  
+            </div>
+            <div class="row">
+              <div class="alert col-md-6 col-md-offset-3" *ngIf="!rForm.controls['fname'].valid && rForm.controls['fname'].touched">
+                {{fnameAlert}}
+              </div>
+            </div>  
+            <!-- Last name input -->
+            <div class="row">
+  
+                <div class="col-md-2">
+                  <label>Last Name</label>
+                </div>
+    
+                <div class="col-md-10">
+                  <input type="text" formControlName="lname">
+                </div>
+    
+              </div>
+              <div class="row">
+                <div class="alert col-md-6 col-md-offset-3" *ngIf="!rForm.controls['lname'].valid && rForm.controls['lname'].touched">
+                  {{lnameAlert}}
+                </div>
+              </div>  
+            <!-- Address input -->
+            <div class="row">
+  
+              <div class="col-md-2">
+                <label>Address</label>
+              </div>
+  
+              <div class="col-md-10">
+                <div class="row">
+                  <div class="col-md-6 col-md-offsett-1">
+                    <p>Number</p> <input type="text" formControlName="addressLine_1">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-md-offsett-1">
+                    <p>Street</p> <input type="text" formControlName="addressLine_2">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-md-offsett-1">
+                    <p>City <input type="text" formControlName="addressLine_3"></p>
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+            <div class="row">
+              <div class="alert col-md-6 col-md-offset-3" *ngIf="!rForm.controls['lname'].valid && rForm.controls['lname'].touched">
+                {{addressAlert}}
+              </div>
+            </div>  
+
+            <!-- Guardian input -->
+            <div class="row">
+  
+              <div class="col-md-2">
+                <label>Guardian</label>
+              </div>
+  
+              <div class="col-md-10">
+                <input type="text" formControlName="guardian">
+              </div>
+  
+            </div>
+            <div class="row">
+              <div class="alert col-md-6 col-md-offset-3" *ngIf="!rForm.controls['guardian'].valid && rForm.controls['guardian'].touched">
+                {{guardianAlert}}
+              </div>
+            </div>
+
+            <!-- DOB input -->
+            <div class="row">
+
+              <div class="col-md-2">
+                <label>Date of Birth</label>
+              </div>
+  
+              <div class="col-md-10">
+                <input type="date" formControlName="dob">
+              </div>
+  
+            </div>
+            <div class="row">
+              <div class="alert col-md-6 col-md-offset-3" *ngIf="!rForm.controls['dob'].valid && rForm.controls['dob'].touched">
+                {{dobAlert}}
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="row">
+
+              <div class="col-md-2">
+                <label>Email</label>
+              </div>
+  
+              <div class="col-md-10">
+                <input type="text" formControlName="email">
+              </div>
+  
+            </div>
+            <div class="row">
+              <div class="alert col-md-6 col-md-offset-3" *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].touched">
+                {{emailAlert}}
+              </div>
+            </div>  
+
+            <!-- Password input -->
+            <div class="row">
+  
+              <div class="col-md-2">
+                <label>Password</label>
+              </div>
+  
+              <div class="col-md-10">
+                <input type="password" formControlName="password">
+              </div>
+  
+            </div>
+            <div class="row">
+              <div class="alert col-md-6 col-md-offset-3" *ngIf="!rForm.controls['password'].valid && rForm.controls['password'].touched">
+                {{passwordAlert}}
+              </div>
+            </div> 
+
+            <!-- Confirm Password input -->
+            <div class="row">
+
+              <div class="col-md-2">
+                <label>Confirm Password</label>
+              </div>
+  
+              <div class="col-md-10">
+                <input type="password" formControlName="cpassword" (change)="checkPassword()">
+              </div>
+  
+            </div>
+            <div class="row">
+              <div class="alert col-md-6 col-md-offset-3" *ngIf="!rForm.controls['cpassword'].valid && rForm.controls['cpassword'].touched">
+                {{cpasswordAlert}}
+              </div>
+            </div> 
+            <div class="row">
+              <div class="alert col-md-6 col-md-offset-3" *ngIf="passwordMatching">
+                {{cpasswordAlert_1}}
+              </div>
+            </div> 
+            <div class="row">
+              <div class="col-md-5 col-md-offset-6">
+                <input type="submit" class="btn btn-success" value="Register">
+              </div> 
+            </div>
+            <div class="row">
+              <div class="alert col-md-6 col-md-offset-3" *ngIf="notFill">
+                <p>Fill all the required fields</p>
+              </div>
+            </div> 
+          </div>
+        </div>
+      </form>
+    </div>
+  
+    <ng-template #forminfo>
+      <div class="form-container">
+        <div class="row columns">
+          <p>{{fname}}</p>
+          <p>{{lname}}</p>
+          <p>{{email}}</p>
+        </div>
+      </div>
+    </ng-template>
+  </div>
