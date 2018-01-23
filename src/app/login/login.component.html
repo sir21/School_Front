@@ -1,5 +1,5 @@
-<div class="container">
-  <div *ngIf="!email; else forminfo">
+<div>
+  <div class="container" *ngIf="!email; else forminfo">
     <form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
       <h2>Login</h2>
 
@@ -54,9 +54,10 @@
 
   <ng-template #forminfo>
     <div class="form-container">
-      <div class="row columns">
-        <h3>{{email}}</h3>
-        <p>{{password}}</p>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <p>{{loginMessage}}</p>
+        </div>
       </div>
     </div>
   </ng-template>
