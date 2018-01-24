@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { Global } from './global';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,5 +12,7 @@ export class AppComponent {
   title = 'app';
   isLoggedIn: boolean = false;
 
-  constructor(){}
+  constructor(private global: Global){
+    this.isLoggedIn = global.isLogin;
+  }
 }

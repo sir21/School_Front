@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { templateSourceUrl } from '@angular/compiler';
 import { HttpClient } from '@angular/common/http';
+import { delay } from 'q';
+import { AppComponent } from '../app.component';
+import { RouterModule, Routes, Router } from '@angular/router';
+
+import { Global } from '../global';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +28,10 @@ export class LoginComponent implements OnInit {
 
   notFill: boolean = false;
 
-  constructor(private fb: FormBuilder, private httpClient:HttpClient) {
+  constructor(private fb: FormBuilder, 
+              private httpClient:HttpClient,
+              private router: Router,
+              private global: Global) {
     this.rForm = fb.group({
       'email': [null, Validators.compose([Validators.required, Validators.email])],
       'password': [null, Validators.required]
@@ -52,6 +60,9 @@ export class LoginComponent implements OnInit {
       (data:any) => {
         console.log(data);
         this.loginMessage = this.sucsessLogin;
+        this.global.isLogin = true;
+        delay(4000);
+        this.router.navigate(['home']);
       },
       (err:any) => {
         console.log(err);

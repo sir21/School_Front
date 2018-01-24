@@ -11,6 +11,7 @@ import { RegisterComponent } from './register/register.component';
 import { CoursesComponent } from './courses/courses.component';
 import { DetailsComponent } from './details/details.component';
 import { EnrollComponent } from './enroll/enroll.component';
+import { Global } from './global';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -38,7 +39,9 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    Global
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
