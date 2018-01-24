@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { templateSourceUrl } from '@angular/compiler';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { delay } from 'q';
 import { AppComponent } from '../app.component';
 import { RouterModule, Routes, Router } from '@angular/router';
 
 import { Global } from '../global';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -25,13 +26,16 @@ export class LoginComponent implements OnInit {
   sucsessLogin: string = 'Login is a success';
   failedLogin: string = 'Login is a Fail';
   loginMessage: string = '';
+  rUname: string = '';
+  rToken: string ='';  
 
   notFill: boolean = false;
 
   constructor(private fb: FormBuilder, 
               private httpClient:HttpClient,
               private router: Router,
-              private global: Global) {
+              private global: Global,
+              private authenticate: AuthenticationService) {
     this.rForm = fb.group({
       'email': [null, Validators.compose([Validators.required, Validators.email])],
       'password': [null, Validators.required]
@@ -52,17 +56,15 @@ export class LoginComponent implements OnInit {
     this.email = post.email;
     this.password = post.password;
 
+    //var httpHeaders: any = new HttpHeaders({ 'RequestVerificationToken': localStorage.getItem('token') });
+
     this.httpClient.post('http://localhost:1816/api/login/login', {
       email: this.email,
       password: this.password
     })
     .subscribe(
       (data:any) => {
-        console.log(data);
-        this.loginMessage = this.sucsessLogin;
-        this.global.isLogin = true;
-        delay(4000);
-        this.router.navigate(['home']);
+        this.onSuccess(data);
       },
       (err:any) => {
         console.log(err);
@@ -72,6 +74,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  onSuccess(data){
+    console.log(data);
+    this.loginMessage = this.sucsessLogin;
+    this.global.isLogin = true;
+    this.global.currentUser = data.email;
+    this.authenticate.saveLogin(data.email, data.token);
+    this.router.navigate(['home']);
   }
 
 }
