@@ -78,7 +78,6 @@ export class LoginComponent implements OnInit {
   onError(err){
     console.log(err);
     this.loginMessage = this.failedLogin;
-    this.email = '';
   }
 
   onSuccess(data){
@@ -88,11 +87,12 @@ export class LoginComponent implements OnInit {
     this.global.isLogin = true;
     this.global.isAdmin = data.isAdmin== true ? true : false;
     this.global.currentUser = data.email;
-    this.authenticate.saveLogin(data.email, data.token, this.global.isAdmin);
+    this.global.isAccepted = data.isAccepted;
+    this.authenticate.saveLogin(data.email, data.token, this.global.isAdmin, this.global.isAccepted);
   }
 
   retry(){
-
+    this.rForm.reset();
   }
 
 }

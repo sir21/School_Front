@@ -151,7 +151,7 @@
               </div>
   
               <div class="col-md-10">
-                <input type="password" formControlName="cpassword" (change)="checkPassword()">
+                <input type="password" formControlName="cpassword" (change)="checkPassword(rForm.value)">
               </div>
   
             </div>
@@ -161,7 +161,7 @@
               </div>
             </div> 
             <div class="row">
-              <div class="alert col-md-6 col-md-offset-3" *ngIf="passwordMatching">
+              <div class="alert col-md-6 col-md-offset-3" *ngIf="!passwordMatching && rForm.controls['cpassword'].touched">
                 {{cpasswordAlert_1}}
               </div>
             </div> 
@@ -183,9 +183,7 @@
     <ng-template #forminfo>
       <div class="form-container">
         <div class="row columns">
-          <p>{{fname}}</p>
-          <p>{{lname}}</p>
-          <p>{{email}}</p>
+          <p>{{registrationMessage}}</p>
         </div>
       </div>
     </ng-template>
