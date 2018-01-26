@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Global } from './global';
@@ -31,5 +31,11 @@ export class AppComponent {
         this.authenticate.saveLogout();
       }
     )
+  }
+
+  ngOnInit() {
+    this.global.currentUser = localStorage.getItem('currentUser');
+    this.global.isAdmin = localStorage.getItem('isAdmin') == "true" ? true : false;
+    this.global.isLogin = localStorage.getItem('isLogin') == "true" ? true : false;
   }
 }

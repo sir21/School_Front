@@ -67,8 +67,7 @@ export class LoginComponent implements OnInit {
         this.onSuccess(data);
       },
       (err:any) => {
-        console.log(err);
-        this.loginMessage = this.failedLogin;
+        this.onError(err);
       }
     )
   }
@@ -76,13 +75,24 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  onError(err){
+    console.log(err);
+    this.loginMessage = this.failedLogin;
+    this.email = '';
+  }
+
   onSuccess(data){
+    this.router.navigate(['home']);
     console.log(data);
     this.loginMessage = this.sucsessLogin;
     this.global.isLogin = true;
+    this.global.isAdmin = data.isAdmin== true ? true : false;
     this.global.currentUser = data.email;
-    this.authenticate.saveLogin(data.email, data.token);
-    this.router.navigate(['home']);
+    this.authenticate.saveLogin(data.email, data.token, this.global.isAdmin);
+  }
+
+  retry(){
+
   }
 
 }
